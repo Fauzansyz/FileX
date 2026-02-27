@@ -13,7 +13,24 @@ void FileManager::loadDirectory() {
   selectedIndex = 0;
 }
 
-voud FileManager::goToSelected() {
-  currentPath = items[selectedIndex].path();
+std::vector<fs::directory_entry> FileManager::getItems() {
+  return items;
+}
+
+std::path FileManager::getCurrentPath() {
+  return currentPath;
+}
+
+bool FileManager::isDirectory(int index) {
+  return items[index].is_directory();
+}
+
+void FileManager::goToSelected(){
+  if(isDirectory(selectedIndex)) currentPath /= items[selectedIndex].path().filename();
+  loadDirectory();
+}
+
+void FileManager::goBack(){
+  if(currentPath.has_parent_path()) currentPath = currentPath.parent_path();
   loadDirectory();
 }
