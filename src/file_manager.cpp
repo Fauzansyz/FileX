@@ -7,7 +7,7 @@ FileManager::FileManager() {
 
 void FileManager::loadDirectory() {
   items.clear();
-  for(auto &entry : fs::entry_iterator(currentPath)) {
+  for(auto &entry : fs::directory_entry(currentPath)) {
     items.push_back(entry);
   }
   selectedIndex = 0;
