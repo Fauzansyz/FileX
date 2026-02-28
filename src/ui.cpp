@@ -15,6 +15,33 @@ void UI::init() {
 
 }
 
+void UI::openFileWithEditor(const std::string& filePath) {
+    clear();
+    mvprintw(1, 2, "Open with:");
+    mvprintw(2, 2, "1. nano");
+    mvprintw(3, 2, "2. nvim");
+    mvprintw(5, 2, "Press 1 / 2 or q to cancel");
+    refresh();
+
+    int ch = getch();
+
+    endwin(); // stop ncurses before launching editor
+
+    std::string cmd;
+    if (ch == '1') cmd = "nano \"" + filePath + "\"";
+    else if (ch == '2') cmd = "nvim \"" + filePath + "\"";
+    else return;
+
+    system(cmd.c_str());
+
+    // back to ncurses
+    initscr();
+    noecho();
+    cbreak();
+    keypad(stdscr, true);
+    curs_set(0);
+}
+
 void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int offset,const std::string& path) {
 
     clear();
