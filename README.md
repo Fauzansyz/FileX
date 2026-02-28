@@ -79,13 +79,11 @@ g++ -o fileX fileX.cpp -lncurses
 - UI may shift when terminal size changes (e.g. mobile keyboard appears)
 - File operations (delete/copy) are not fully implemented yet
 
----
 
 ### 📜 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
----
 
 ### 💬 Author
 
