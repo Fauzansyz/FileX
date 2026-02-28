@@ -8,9 +8,16 @@ namespace fs = std::filesystem;
 
 class FileManager {
 public:
+    
+enum class OpenResult{
+  OpenedDirectory,
+  OpenedFile,
+  Nothing,
+};
+
     FileManager();
     void loadDirectory();
-    void goToSelected();
+    OpenResult goToSelected();
     void goBack();
 
     std::vector<fs::directory_entry> getItems();

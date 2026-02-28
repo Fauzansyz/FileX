@@ -30,12 +30,17 @@ bool FileManager::isDirectory(int index) {
     return items[index].is_directory();
 }
 
-void FileManager::goToSelected() {
-    if (isDirectory(selectedIndex)) {
-        currentPath /= items[selectedIndex].path().filename();
-        loadDirectory();
+FileManager::OpenResult FileManager::goToSelected() {
+  if (items.empty()) return OpenResult::Nothing;
+
+  if (isDirectory(selectedIndex)) {
+    currentPath /= items[selectedIndex].path().filename();
+      loadDirectory();
+      return OpenResult::OpenedDirectory;
+      } else {
+      return OpenResult::OpenedFile;
     }
-}
+  }
 
 void FileManager::goBack() {
     if (currentPath.has_parent_path()) {
