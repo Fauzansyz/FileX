@@ -6,6 +6,12 @@ void UI::init() {
     noecho();
     cbreak();
     keypad(stdscr, TRUE);
+    init_color();
+    init_pair(1, COLOR_CYAN, COLOR_BLACK);
+    init_pair(2, COLOR_GREEN, COLOR_BLACK);
+    init_pair(3, COLOR_WHITE, COLOR_BLACK);
+    init_pair(4, COLOR_BLACK, COLOR_WHITE);
+
 }
 
 void UI::draw(const std::vector<fs::directory_entry>& items,
@@ -13,6 +19,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,
               const std::string& path) {
 
     clear();
+    box(stdscr, 0, 0);
     attron(COLOR_PAIR(1));
     mwprintw(1, 2, "FileX - File manager",);
     attroff(COLOR_PAIR(1));
