@@ -5,12 +5,13 @@ void UI::init() {
     initscr();
     noecho();
     cbreak();
-    keypad(stdscr, TRUE);
+    keypad(stdscr, true);
     start_color();
     init_pair(1, COLOR_CYAN, COLOR_BLACK);
     init_pair(2, COLOR_GREEN, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
     init_pair(4, COLOR_BLACK, COLOR_WHITE);
+    init_pair(5, COLOR_BLACK, COLOR_CYAN);
 
 }
 
@@ -30,8 +31,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,
     for (int i = 0; i < items.size(); i++) {
         std::string name = items[i].path().filename().string();
 
-        if (i == selected) attron(COLOR_PAIR(4));
-
+        if (i == selected) attron(A_REVERSE);
         if (items[i].is_directory()){
 
             attron(COLOR_PAIR(2));
@@ -43,7 +43,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,
             attron(COLOR_PAIR(3));
         }
 
-        if (i == selected) attroff(COLOR_PAIR(4));
+        if (i == selected) attroff(A_REVERSE);
     }
     int h, w;
     getmaxyx(stdscr, h, w);
