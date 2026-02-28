@@ -15,11 +15,13 @@ void UI::init() {
 
 }
 
-void UI::draw(const std::vector<fs::directory_entry>& items,
-              int selected,
-              const std::string& path) {
+void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int offset,const std::string& path) {
 
     clear();
+    int height, width;
+    getmaxyx(stdscr, height, width);
+
+    int visibleRows = height - 3;
     box(stdscr, 0, 0);
     attron(COLOR_PAIR(1));
     mvprintw(1, 2, "FileX - File manager");
@@ -28,22 +30,33 @@ void UI::draw(const std::vector<fs::directory_entry>& items,
     mvprintw(2, 2, "Path: %s", path.c_str());
     mvprintw(3, 2, "------------------");
 
-    for (int i = 0; i < items.size(); i++) {
-        std::string name = items[i].path().filename().string();
+    if (selected < offset){
+      offset = selected;
+    }
 
-        if (i == selected) attron(A_REVERSE);
-        if (items[i].is_directory()){
+        if (selected >= offset + visibleRows){
+            offset = selected - visibleRows + 1;
+        }
+
+    for (int i = 0; i < visibleRows; i++) {
+      int index = i + offset;
+       if (index >= items.size()) break;
+              
+        std::string name = items[index].path().filename().string();
+
+        if (index == selected) attron(A_REVERSE);
+        if (items[index].is_directory()){
 
             attron(COLOR_PAIR(2));
-            mvprintw(i + 3, 4, "[DIR] %s", name.c_str());
+            mvprintw(i + 5, 4, "[DIR] %s", name.c_str());
             attron(COLOR_PAIR(2));
         } else{
           attron(COLOR_PAIR(3));
-            mvprintw(i + 3, 4, "      %s", name.c_str());
+            mvprintw(i + 5, 4, "      %s", name.c_str());
             attron(COLOR_PAIR(3));
         }
 
-        if (i == selected) attroff(A_REVERSE);
+        if (index == selected) attroff(A_REVERSE);
     }
     int h, w;
     getmaxyx(stdscr, h, w);

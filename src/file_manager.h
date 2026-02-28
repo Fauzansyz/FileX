@@ -18,6 +18,7 @@ public:
     bool isDirectory(int index);
 
     int selectedIndex = 0;
+    int offset = 0;
 
 private:
     fs::path currentPath;

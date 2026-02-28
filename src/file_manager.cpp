@@ -15,6 +15,7 @@ void FileManager::loadDirectory() {
         items.push_back(entry);
     }
     selectedIndex = 0;
+    offset = 0;
 }
 
 std::vector<fs::directory_entry> FileManager::getItems() {

@@ -9,7 +9,7 @@ int main() {
     ui.init();
 
     while (true) {
-        ui.draw(fm.getItems(), fm.selectedIndex, fm.getCurrentPath().string());
+        ui.draw(fm.getItems(), fm.selectedIndex,fm.offset, fm.getCurrentPath().string());
         int ch = ui.handleInput();
 
         if (ch == 'q' || ch == 'Q') break;
