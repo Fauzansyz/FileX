@@ -10,7 +10,6 @@ namespace fs = std::filesystem;
 class UI {
 public:
     void init();
-    void openFileWithEditor(const std::string& filePath);
     void draw(const std::vector<fs::directory_entry>& items,
               int selected,
               int offset,

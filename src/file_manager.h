@@ -19,6 +19,7 @@ enum class OpenResult{
     void loadDirectory();
     OpenResult goToSelected();
     void goBack();
+    void openFileWithEditor(const std::string& filePath);
 
     std::vector<fs::directory_entry> getItems();
     fs::path getCurrentPath();
@@ -30,6 +31,8 @@ enum class OpenResult{
 private:
     fs::path currentPath;
     std::vector<fs::directory_entry> items;
+    bool commandExists(const std::string& command);
+    int showEditorPrompt();
 };
 
 #endif
