@@ -22,7 +22,11 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     getmaxyx(stdscr, height, width);
 
     int headerHeight = 4;
-    int visibleRows = height - headerHeight;
+    int footerHeight = 2;
+
+    int visibleRows = height - headerHeight - footerHeight;
+    if (visibleRows < 1) visibleRows = 1;
+
     box(stdscr, 0, 0);
     attron(COLOR_PAIR(1));
     mvprintw(1, 2, "FileX - File manager");
@@ -67,7 +71,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     int h, w;
     getmaxyx(stdscr, h, w);
     attron(A_REVERSE);
-    mvprintw(h-1, 0, " ↑↓ Navigate | Enter Open | Q Quit ");
+    mvprintw(height - 2, 2, "[ ↑↓ ] Navigate | [ Enter ] Open | [ Q ] Quit ");
 attroff(A_REVERSE);
     refresh();
 }

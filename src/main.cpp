@@ -14,6 +14,12 @@ int main() {
 
         if (ch == 'q' || ch == 'Q') break;
 
+        if (ch == KEY_RESIZE) {
+              clear();
+        ui.draw(fm.getItems(), fm.selectedIndex,fm.offset, fm.getCurrentPath().string());
+              continue;
+        }
+
         if (ch == KEY_UP && fm.selectedIndex > 0)
             fm.selectedIndex--;
 
