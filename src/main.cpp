@@ -1,5 +1,6 @@
 #include "file_manager.h"
 #include "ui.h"
+#include <ncurses.h>
 
 int main() {
     FileManager fm;
@@ -19,7 +20,7 @@ int main() {
         if (ch == KEY_DOWN && fm.selectedIndex < fm.getItems().size() - 1)
             fm.selectedIndex++;
 
-        if (ch == 10) // Enter
+        if (ch == 10)
             fm.goToSelected();
 
         if (ch == KEY_BACKSPACE || ch == 127)

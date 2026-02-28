@@ -2,37 +2,54 @@
 #include <ncurses.h>
 
 void UI::init() {
-      initscr();
-      noecho();
-      cbreak();
-      keypad(stdscr, TRUE);
+    initscr();
+    noecho();
+    cbreak();
+    keypad(stdscr, TRUE);
 }
 
-voud UI::draw(const std::vector<fs::directory_entry> items, int selected, const std::string& path) {
-  clear();
-  mvprintw(0, 2 "NeoFM - %s", path.c_str());
-   mvprintw(1, 2, "[Enter] Open  [Backspace] Back  [Q] Quit");
+void UI::draw(const std::vector<fs::directory_entry>& items,
+              int selected,
+              const std::string& path) {
 
-   for(int i = 0; i < items.size(); i++){
-      std::string name = items[i].path().filename().string();
-      if(i == selected) attron(A_REVERSE);
-      if(items[i].is_directory()) mvprintw i + 2, 2, "[ DIR ] %s", name.c_str();
-     else {
-       mvprintw(i + 2, 2, " %s", name.c_str());
-       attroff(A_REVERSE);
-     }
-     if(i == selected){
-       attroff(A_REVERSE);
-     }
-     refresh(); 
-   }
+    clear();
+    attron(COLOR_PAIR(1));
+    mwprintw(1, 2, "FileX - File manager",);
+    attroff(COLOR_PAIR(1));
 
+    mwprintw(2, 2, "Path: %s", path.c_str());
+    mwprintw(3, 2, "------------------");
+
+    for (int i = 0; i < items.size(); i++) {
+        std::string name = items[i].path().filename().string();
+
+        if (i == selected) attron(COLOR_PAIR(4));
+
+        if (items[i].is_directory()){
+
+            attron(COLO_PAIR(2));
+            mvprintw(i + 3, 4, "[DIR] %s", name.c_str());
+            attron(COLOR_PAIR(2));
+        } else{
+          attron(COLOR_PAIR(3));
+            mvprintw(i + 3, 4, "      %s", name.c_str());
+            attron(COLOR_PAIR(3));
+        }
+
+        if (i == selected) attroff(COLOR_PAIR(4));
+    }
+    int h, w;
+    getmaxyx(stdscr, h, w);
+    attron(A_REVERSE);
+    mvprintw(h-1, 0, " ↑↓ Navigate | Enter Open | Q Quit ");
+attroff(A_REVERSE);
+    refresh();
 }
 
 int UI::handleInput() {
-  return getch();
+    return getch();
 }
 
 void UI::close() {
-  endwin();
+    endwin();
 }

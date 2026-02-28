@@ -1,4 +1,4 @@
-#ifdef FILE_MANAGER_H
+#ifndef FILE_MANAGER_H
 #define FILE_MANAGER_H
 
 #include <filesystem>
@@ -6,23 +6,22 @@
 
 namespace fs = std::filesystem;
 
-class FileManager
-{
+class FileManager {
 public:
-  FileManager();
-  void loadDirectory();
-  void goToSelected();
-  void goBack();
+    FileManager();
+    void loadDirectory();
+    void goToSelected();
+    void goBack();
 
-  std::vector<fs::directory_entry> getItems();
-  fs::path getCurrentPath();
+    std::vector<fs::directory_entry> getItems();
+    fs::path getCurrentPath();
+    bool isDirectory(int index);
 
-  bool isDirectory(int index);
+    int selectedIndex = 0;
 
-  int selectedIndex = 0;
-  private:
-     std::path currentPath;
-     std::vector<fs::directory_entry> items;
+private:
+    fs::path currentPath;
+    std::vector<fs::directory_entry> items;
 };
 
-#endif // 
+#endif

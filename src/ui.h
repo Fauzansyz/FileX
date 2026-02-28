@@ -8,9 +8,11 @@
 namespace fs = std::filesystem;
 
 class UI {
-  public:
+public:
     void init();
-    void draw(const std::vector<fs::directory_entry> items, int selected, const std::string& path);
+    void draw(const std::vector<fs::directory_entry>& items,
+              int selected,
+              const std::string& path);
     int handleInput();
     void close();
 };
