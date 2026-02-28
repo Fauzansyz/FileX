@@ -56,7 +56,8 @@ g++ -o fileX fileX.cpp -lncurses
 .
 ├── src 
 ├── README.md
-└── filex
+├── filex
+└── LICENSE
 ```
 
 ### 🧠 How It Works (simple)
