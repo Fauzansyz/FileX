@@ -6,7 +6,7 @@ void UI::init() {
     noecho();
     cbreak();
     keypad(stdscr, TRUE);
-    init_color();
+    start_color();
     init_pair(1, COLOR_CYAN, COLOR_BLACK);
     init_pair(2, COLOR_GREEN, COLOR_BLACK);
     init_pair(3, COLOR_WHITE, COLOR_BLACK);
@@ -21,11 +21,11 @@ void UI::draw(const std::vector<fs::directory_entry>& items,
     clear();
     box(stdscr, 0, 0);
     attron(COLOR_PAIR(1));
-    mwprintw(1, 2, "FileX - File manager",);
+    mvprintw(1, 2, "FileX - File manager");
     attroff(COLOR_PAIR(1));
 
-    mwprintw(2, 2, "Path: %s", path.c_str());
-    mwprintw(3, 2, "------------------");
+    mvprintw(2, 2, "Path: %s", path.c_str());
+    mvprintw(3, 2, "------------------");
 
     for (int i = 0; i < items.size(); i++) {
         std::string name = items[i].path().filename().string();
@@ -34,7 +34,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,
 
         if (items[i].is_directory()){
 
-            attron(COLO_PAIR(2));
+            attron(COLOR_PAIR(2));
             mvprintw(i + 3, 4, "[DIR] %s", name.c_str());
             attron(COLOR_PAIR(2));
         } else{
