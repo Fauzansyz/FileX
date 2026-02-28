@@ -21,7 +21,8 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     int height, width;
     getmaxyx(stdscr, height, width);
 
-    int visibleRows = height - 3;
+    int headerHeight = 4;
+    int visibleRows = height - headerHeight;
     box(stdscr, 0, 0);
     attron(COLOR_PAIR(1));
     mvprintw(1, 2, "FileX - File manager");
@@ -34,9 +35,14 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
       offset = selected;
     }
 
-        if (selected >= offset + visibleRows){
-            offset = selected - visibleRows + 1;
-        }
+    if (selected >= offset + visibleRows){
+      offset = selected - visibleRows + 1;
+    }
+
+    for (int i = 0; i < visibleRows; i++) {
+          move(i + 2, 0);
+              clrtoeol();
+    }
 
     for (int i = 0; i < visibleRows; i++) {
       int index = i + offset;
@@ -48,11 +54,11 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
         if (items[index].is_directory()){
 
             attron(COLOR_PAIR(2));
-            mvprintw(i + 5, 4, "[DIR] %s", name.c_str());
+            mvprintw(i + headerHeight, 2, "[DIR] %s", name.c_str());
             attron(COLOR_PAIR(2));
         } else{
           attron(COLOR_PAIR(3));
-            mvprintw(i + 5, 4, "      %s", name.c_str());
+            mvprintw(i + headerHeight, 2, "      %s", name.c_str());
             attron(COLOR_PAIR(3));
         }
 
