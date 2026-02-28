@@ -45,8 +45,8 @@ sudo apt install libncurses-dev
 ```bash
 git clone https://github.com/Fauzansyz/fileX.git
 cd fileX
-g++ -o fileX fileX.cpp -lncurses
-./fileX
+chmod +x build.sh
+./build.sh
 
 ```
 
@@ -57,6 +57,7 @@ g++ -o fileX fileX.cpp -lncurses
 ├── src 
 ├── README.md
 ├── filex
+├── build.sh
 └── LICENSE
 ```
 
