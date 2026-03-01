@@ -22,7 +22,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     int height, width;
     getmaxyx(stdscr, height, width);
 
-    int headerHeight = 3;
+    int headerHeight = 4;
     int footerHeight = 2;
 
     int visibleRows = height - headerHeight - footerHeight;
@@ -35,7 +35,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
    // mvprintw(2, width - 11, "----------------");
     attroff(COLOR_PAIR(1));
 
-    mvprintw(2, 1, "Path: %s", path.c_str());
+    mvprintw(2, 2, "Path: %s", path.c_str());
     mvprintw(3, 2, "------------------");
 
     if (selected < offset){
@@ -47,7 +47,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     }
 
     for (int i = 0; i < visibleRows; i++) {
-          move(i + 2, 0);
+          move(i + headerHeight, 0);
               clrtoeol();
     }
 
