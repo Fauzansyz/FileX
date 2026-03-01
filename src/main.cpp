@@ -15,6 +15,10 @@ int main() {
 
         if (ch == 'q' || ch == 'Q') break;
 
+        if(ch == 'r' || ch == 'R'){
+         fm.deleteSelected(); 
+        }
+
         if (ch == KEY_RESIZE) {
               clear();
         ui.draw(fm.getItems(), fm.selectedIndex,fm.offset, fm.getCurrentPath().string());

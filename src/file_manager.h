@@ -27,6 +27,8 @@ enum class OpenResult{
 
     int selectedIndex = 0;
     int offset = 0;
+    bool deleteSelected();
+    int showDeleteConfirm();
 
 private:
     fs::path currentPath;

@@ -20,6 +20,7 @@ void FileManager::loadDirectory() {
     offset = 0;
 }
 
+
 std::vector<fs::directory_entry> FileManager::getItems() {
     return items;
 }
@@ -35,6 +36,47 @@ bool FileManager::isDirectory(int index) {
 bool FileManager::commandExists(const std::string& cmd) {
       std::string check = "command -v " + cmd + " > /dev/null 2>&1";
       return system(check.c_str()) == 0;
+}
+
+bool FileManager::deleteSelected(){
+  if(items.empty()) return false;
+
+  fs::path target = items[selectedIndex].path();
+  int confirm = showDeleteConfirm();
+
+  if(confirm == 0) return false;
+  if(target == "/" || target == fs::path(getenv("HOME")))
+        return false;
+  
+  try {
+    if(fs::is_directory(target)){
+      fs::remove_all(target);
+    }
+    else {
+      fs::remove(target);
+    return true;
+    }
+    loadDirectory();
+    return true;
+  }
+  catch(const std::exception& e) {
+    return false;
+  }
+}
+
+int FileManager::showDeleteConfirm() {
+    clear();
+    mvprintw(5,5,"Delete this item?");
+    mvprintw(7,7,"y = Yes");
+    mvprintw(8,7,"n = No");
+    refresh();
+
+  int ch;
+    while(true) {
+       ch = getch();
+   if(ch == 'y' || ch == 'Y') return 1;
+                                                        if(ch == 'n' || ch == 'N') return 0;
+                                                            }
 }
 
 
