@@ -15,6 +15,10 @@ int main() {
 
         if (ch == 'q' || ch == 'Q') break;
 
+        if(ch == 'h' || ch == 'H'){
+         ui.showHelp(); 
+        }
+
         if(ch == 'r' || ch == 'R'){
          fm.deleteSelected(); 
         }

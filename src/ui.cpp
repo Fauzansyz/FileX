@@ -22,7 +22,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     int height, width;
     getmaxyx(stdscr, height, width);
 
-    int headerHeight = 4;
+    int headerHeight = 3;
     int footerHeight = 2;
 
     int visibleRows = height - headerHeight - footerHeight;
@@ -31,9 +31,11 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     box(stdscr, 0, 0);
     attron(COLOR_PAIR(1));
     mvprintw(1, 2, "FileX - File manager");
+    mvprintw(1, width - 6, "v1.0");
+   // mvprintw(2, width - 11, "----------------");
     attroff(COLOR_PAIR(1));
 
-    mvprintw(2, 2, "Path: %s", path.c_str());
+    mvprintw(2, 1, "Path: %s", path.c_str());
     mvprintw(3, 2, "------------------");
 
     if (selected < offset){
@@ -76,6 +78,34 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
 attroff(A_REVERSE);
     refresh();
 }
+
+void UI::showHelp() {
+    clear();
+
+    mvprintw(1, 2, "NeoFM - Help");
+    mvprintw(2, 2, "-----------------------------");
+
+    mvprintw(4, 2, "Navigation:");
+    mvprintw(5, 4, "Up / Down     : Move selection");
+    mvprintw(6, 4, "Enter         : Open folder / file");
+    mvprintw(7, 4, "Backspace     : Go back");
+
+    mvprintw(9, 2, "File Actions:");
+    mvprintw(10, 4, "d             : Delete file/folder");
+    mvprintw(11, 4, "h or ?        : Show help");
+    mvprintw(12, 4, "q             : Quit");
+
+    mvprintw(14, 2, "Editors:");
+    mvprintw(15, 4, "1             : Open with Neovim");
+    mvprintw(16, 4, "2             : Open with Nano");
+
+    mvprintw(18, 2, "Press any key to return...");
+    refresh();
+
+    getch(); // pause sampai user tekan tombol
+}
+
+
 
 int UI::handleInput() {
     return getch();
