@@ -60,6 +60,11 @@ bool FileManager::deleteSelected(){
     return true;
   }
   catch(const std::exception& e) {
+    clear();
+    mvprintw(5,5,"Failed to delete!");
+    mvprintw(6,5,e.what());
+    refresh();
+    getch();
     return false;
   }
 }
