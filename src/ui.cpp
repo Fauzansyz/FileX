@@ -14,6 +14,29 @@ void UI::init() {
     init_pair(5, COLOR_BLACK, COLOR_CYAN);
 
 }
+void UI::showHelp() {
+      clear();
+      mvprintw(1, 2, "NeoFM - Help");
+      mvprintw(2, 2, "-----------------------------");
+      mvprintw(4, 2, "Navigation:");
+      mvprintw(5, 4, "Up / Down     : Move selection");
+       mvprintw(6, 4, "Enter         : Open folder / file");
+      mvprintw(7, 4, "Backspace     : Go back");
+
+      mvprintw(9, 2, "File Actions:");
+      mvprintw(10, 4, "d             : Delete file/folder");
+      mvprintw(11, 4, "h or ?        : Show help");
+      mvprintw(12, 4, "q             : Quit");
+
+      mvprintw(14, 2, "Editors:");
+                                                           mvprintw(15, 4, "1             : Open with Neovim");
+                                                           mvprintw(16, 4, "2             : Open with Nano");
+       mvprintw(18, 2, "Press any key to return...");
+                                                          refresh();
+
+                                                           getch(); // pause sampai user tekan tombol
+                                                                               // }
+ }
 
 
 void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int offset,const std::string& path) {
@@ -31,8 +54,7 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     box(stdscr, 0, 0);
     attron(COLOR_PAIR(1));
     mvprintw(1, 2, "FileX - File manager");
-    mvprintw(1, width - 6, "v1.0");
-   // mvprintw(2, width - 11, "----------------");
+    mvprintw(1, width - 9, "v1.0.0");
     attroff(COLOR_PAIR(1));
 
     mvprintw(2, 2, "Path: %s", path.c_str());
@@ -77,32 +99,6 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     mvprintw(height - 2, 2, "[ Up/Down ] Navigate | [ Enter ] Open | [ Q ] Quit ");
 attroff(A_REVERSE);
     refresh();
-}
-
-void UI::showHelp() {
-    clear();
-
-    mvprintw(1, 2, "NeoFM - Help");
-    mvprintw(2, 2, "-----------------------------");
-
-    mvprintw(4, 2, "Navigation:");
-    mvprintw(5, 4, "Up / Down     : Move selection");
-    mvprintw(6, 4, "Enter         : Open folder / file");
-    mvprintw(7, 4, "Backspace     : Go back");
-
-    mvprintw(9, 2, "File Actions:");
-    mvprintw(10, 4, "d             : Delete file/folder");
-    mvprintw(11, 4, "h or ?        : Show help");
-    mvprintw(12, 4, "q             : Quit");
-
-    mvprintw(14, 2, "Editors:");
-    mvprintw(15, 4, "1             : Open with Neovim");
-    mvprintw(16, 4, "2             : Open with Nano");
-
-    mvprintw(18, 2, "Press any key to return...");
-    refresh();
-
-    getch(); // pause sampai user tekan tombol
 }
 
 
