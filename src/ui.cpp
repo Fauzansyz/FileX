@@ -57,8 +57,8 @@ void UI::draw(const std::vector<fs::directory_entry>& items,int selected, int of
     mvprintw(1, width - 9, "v1.0.0");
     attroff(COLOR_PAIR(1));
 
-    mvprintw(2, 2, "Path: %s", path.c_str());
-    mvprintw(3, 2, "------------------");
+    mvprintw(2, 4, "Path: %s", path.c_str());
+    mvprintw(3, 4, "------------------");
 
     if (selected < offset){
       offset = selected;
