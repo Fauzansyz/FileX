@@ -30,7 +30,7 @@ void UI::drawStatusBar(const std::vector<fs::directory_entry> &items,
 
     if (items[selected].is_directory()) {
       type = "DIR";
-      size = "-";
+      size = "N/A";
     } else {
       type = "FILE";
       auto s = fs::file_size(items[selected].path());
