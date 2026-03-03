@@ -14,6 +14,35 @@ void UI::init() {
   init_pair(5, COLOR_BLACK, COLOR_CYAN);
 }
 
+void UI::drawStatusBar(const std::vector<fs::directory_entry> &items,
+                       int selected) {
+  int h, w;
+  getmaxyx(stdscr, h, w);
+
+  attron(A_REVERSE);
+
+  std::string name = "-";
+  std::string size = "-";
+  std::string type = "-";
+
+  if (!items.empty() && selected < items.size()) {
+    name = items[selected].path().filename().string();
+
+    if (items[selected].is_directory()) {
+      type = "DIR";
+      size = "-";
+    } else {
+      type = "FILE";
+      auto s = fs::file_size(items[selected].path());
+      size = std::to_string(s) + " bytes";
+    }
+  }
+
+  attron(A_REVERSE);
+  mvprintw(h - 2, 2,
+           "[ Selected: %s | Type: %s | Size: %s ]", name.c_str(), type.c_str(), size.c_str() );
+  attroff(A_REVERSE);
+}
 
 void UI::showHelp() {
   clear();
@@ -35,8 +64,7 @@ void UI::showHelp() {
   mvprintw(18, 2, "Press any key to return...");
   refresh();
 
-  getch(); // pause sampai user tekan tombol
-           // }
+  getch();
 }
 
 void UI::draw(const std::vector<fs::directory_entry> &items, int selected,
@@ -104,6 +132,7 @@ void UI::draw(const std::vector<fs::directory_entry> &items, int selected,
   mvprintw(height - 2, 2,
            "[ Up/Down ] Navigate | [ Enter ] Open | [ Q ] Quit ");
   attroff(A_REVERSE);
+  drawStatusBar(items, selected);
   refresh();
 }
 
