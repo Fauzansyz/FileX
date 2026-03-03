@@ -8,33 +8,32 @@ namespace fs = std::filesystem;
 
 class FileManager {
 public:
-    
-enum class OpenResult{
-  OpenedDirectory,
-  OpenedFile,
-  Nothing,
-};
+  enum class OpenResult {
+    OpenedDirectory,
+    OpenedFile,
+    Nothing,
+  };
 
-    FileManager();
-    void loadDirectory();
-    OpenResult goToSelected();
-    void goBack();
-    void openFileWithEditor(const std::string& filePath);
+  FileManager();
+  void loadDirectory();
+  OpenResult goToSelected();
+  void goBack();
+  void openFileWithEditor(const std::string &filePath);
 
-    std::vector<fs::directory_entry> getItems();
-    fs::path getCurrentPath();
-    bool isDirectory(int index);
+  std::vector<fs::directory_entry> getItems();
+  fs::path getCurrentPath();
+  bool isDirectory(int index);
 
-    int selectedIndex = 0;
-    int offset = 0;
-    bool deleteSelected();
-    int showDeleteConfirm();
+  int selectedIndex = 0;
+  int offset = 0;
+  bool deleteSelected();
+  int showDeleteConfirm();
 
 private:
-    fs::path currentPath;
-    std::vector<fs::directory_entry> items;
-    bool commandExists(const std::string& command);
-    int showEditorPrompt();
+  fs::path currentPath;
+  std::vector<fs::directory_entry> items;
+  bool commandExists(const std::string &command);
+  int showEditorPrompt();
 };
 
 #endif
