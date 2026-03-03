@@ -129,10 +129,10 @@ void UI::draw(const std::vector<fs::directory_entry> &items, int selected,
   int h, w;
   getmaxyx(stdscr, h, w);
   attron(A_REVERSE);
-  mvprintw(height - 2, 2,
+  drawStatusBar(items, selected);
+  mvprintw(height - 3, 2,
            "[ Up/Down ] Navigate | [ Enter ] Open | [ Q ] Quit ");
   attroff(A_REVERSE);
-  drawStatusBar(items, selected);
   refresh();
 }
 
