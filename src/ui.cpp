@@ -75,7 +75,7 @@ void UI::draw(const std::vector<fs::directory_entry> &items, int selected,
   getmaxyx(stdscr, height, width);
 
   int headerHeight = 4;
-  int footerHeight = 2;
+  int footerHeight = 5;
 
   int visibleRows = height - headerHeight - footerHeight;
   if (visibleRows < 1)
@@ -128,9 +128,9 @@ void UI::draw(const std::vector<fs::directory_entry> &items, int selected,
   }
   int h, w;
   getmaxyx(stdscr, h, w);
-  attron(A_REVERSE);
   drawStatusBar(items, selected);
-  mvprintw(height - 3, 2,
+  attron(A_REVERSE);
+  mvprintw(height - 4, 2,
            "[ Up/Down ] Navigate | [ Enter ] Open | [ Q ] Quit ");
   attroff(A_REVERSE);
   refresh();
