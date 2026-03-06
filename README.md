@@ -26,6 +26,8 @@ It allows you to navigate directories directly from the terminal with an interac
 | `Enter` | Open directory |
 | `Backspace` | Go back |
 | `q` | Quit application |
+| `h` | Help (this page) |
+| `r` | remove directory |
 
 ---
 
