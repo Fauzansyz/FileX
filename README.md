@@ -1,4 +1,4 @@
-# 📁 FileX — Terminal File Manager (C++ & ncurses)
+# 📁 FileX — Terminal File Manager
 
 FileX is a terminal-based file manager (TUI) built using **C++** and **ncurses**.  
 It allows you to navigate directories directly from the terminal with an interactive UI (highlight + scroll).
@@ -11,7 +11,6 @@ It allows you to navigate directories directly from the terminal with an interac
 - 📂 Directory navigation (Enter to open folder)
 - 🔙 Go back to parent directory (Backspace)
 - 🎯 Highlight cursor for selected file / folder
-- 🖱️ Automatic scrolling when files exceed screen height
 - 📍 Display current path
 - 🧠 Responsive UI based on terminal size
 - ⌨️ Full keyboard control
