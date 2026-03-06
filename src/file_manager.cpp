@@ -64,7 +64,7 @@ bool FileManager::deleteSelected() {
 
 int FileManager::showDeleteConfirm() {
   clear();
-  mvprintw(5, 5, "Delete this item?");
+  mvprintw(5, 5, "Are you sure you want to delete this?");
   mvprintw(7, 7, "y = Yes");
   mvprintw(8, 7, "n = No");
   refresh();
