@@ -79,65 +79,81 @@ int FileManager::showDeleteConfirm() {
   }
 }
 
-void FileManager::openFileWithEditor(const std::string &filePath) {
+void FileManager::moveFileOrDirectory() {
   clear();
-  mvprintw(0, 0, "Open with:");
-  mvprintw(2, 2, "1. nano");
-  mvprintw(3, 2, "2. nvim");
-  mvprintw(5, 2, "Press 1 / 2 or q to cancel");
+  mvprintw(5, 5, "Move to:");
+  mvprintw(7, 7, "y = Yes");
+  mvprintw(8, 7, "n = No");
   refresh();
 
-  int ch = getch();
-
-  endwin(); // stop ncurses before launching editor
-
-  std::string cmd;
-  if (ch == '1') {
-    cmd = "nano \"" + filePath + "\"";
-    if (!commandExists("nano")) {
-      std::cout << "No editor found! Install nano or neovim.\n";
-      std::cout << "Press Enter to return...";
-      std::cin.get();
-    };
-
-  } else if (ch == '2') {
-    cmd = "nvim \"" + filePath + "\"";
-    if (!commandExists("nvim")) {
-      std::cout << "No editor found! Install nano or neovim.\n";
-      std::cout << "Press Enter to return...";
-      std::cin.get();
-    };
-
-  } else {
-    return;
+  int ch;
+  while (true) {
+    ch = getch();
+    if (ch == 'y' || ch == 'Y')
+      return 1;
+    if (ch == 'n' || ch == 'N')
+      return 0;
   }
 
-  system(cmd.c_str());
+  void FileManager::openFileWithEditor(const std::string &filePath) {
+    clear();
+    mvprintw(0, 0, "Open with:");
+    mvprintw(2, 2, "1. nano");
+    mvprintw(3, 2, "2. nvim");
+    mvprintw(5, 2, "Press 1 / 2 or q to cancel");
+    refresh();
 
-  // back to ncurses
-  initscr();
-  noecho();
-  cbreak();
-  keypad(stdscr, true);
-  curs_set(0);
-}
+    int ch = getch();
 
-FileManager::OpenResult FileManager::goToSelected() {
-  if (items.empty())
-    return OpenResult::Nothing;
+    endwin(); // stop ncurses before launching editor
 
-  if (isDirectory(selectedIndex)) {
-    currentPath /= items[selectedIndex].path().filename();
-    loadDirectory();
-    return OpenResult::OpenedDirectory;
-  } else {
-    return OpenResult::OpenedFile;
+    std::string cmd;
+    if (ch == '1') {
+      cmd = "nano \"" + filePath + "\"";
+      if (!commandExists("nano")) {
+        std::cout << "No editor found! Install nano or neovim.\n";
+        std::cout << "Press Enter to return...";
+        std::cin.get();
+      };
+
+    } else if (ch == '2') {
+      cmd = "nvim \"" + filePath + "\"";
+      if (!commandExists("nvim")) {
+        std::cout << "No editor found! Install nano or neovim.\n";
+        std::cout << "Press Enter to return...";
+        std::cin.get();
+      };
+
+    } else {
+      return;
+    }
+
+    system(cmd.c_str());
+
+    // back to ncurses
+    initscr();
+    noecho();
+    cbreak();
+    keypad(stdscr, true);
+    curs_set(0);
   }
-}
 
-void FileManager::goBack() {
-  if (currentPath.has_parent_path()) {
-    currentPath = currentPath.parent_path();
-    loadDirectory();
+  FileManager::OpenResult FileManager::goToSelected() {
+    if (items.empty())
+      return OpenResult::Nothing;
+
+    if (isDirectory(selectedIndex)) {
+      currentPath /= items[selectedIndex].path().filename();
+      loadDirectory();
+      return OpenResult::OpenedDirectory;
+    } else {
+      return OpenResult::OpenedFile;
+    }
   }
-}
+
+  void FileManager::goBack() {
+    if (currentPath.has_parent_path()) {
+      currentPath = currentPath.parent_path();
+      loadDirectory();
+    }
+  }

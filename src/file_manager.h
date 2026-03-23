@@ -18,6 +18,7 @@ public:
   void loadDirectory();
   OpenResult goToSelected();
   void goBack();
+  void moveFileOrDirectory();
   void openFileWithEditor(const std::string &filePath);
 
   std::vector<fs::directory_entry> getItems();

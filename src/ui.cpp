@@ -46,7 +46,7 @@ void UI::drawStatusBar(const std::vector<fs::directory_entry> &items,
 
 void UI::showHelp() {
   clear();
-  mvprintw(1, 2, "NeoFM - Help");
+  mvprintw(1, 2, "FileX - Help");
   mvprintw(2, 2, "-----------------------------");
   mvprintw(4, 2, "Navigation:");
   mvprintw(5, 4, "Up / Down     : Move selection");
